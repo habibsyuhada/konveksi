@@ -46,6 +46,12 @@
 		.bg-pico-8pink{
 			background: #fd79a8;
 		}
+		.bg-orange-theme{
+			background: #ffba00;
+		}
+		.rounded-pill{
+			border-radius: 50rem!important
+		}
   </style>
   
   <script src="<?php echo base_url() ?>assets/js/vendor/jquery-2.2.4.min.js"></script>
