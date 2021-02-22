@@ -22,7 +22,6 @@ class Home extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('user_mod');
-		$this->load->model('shipment_mod');
 		if($this->session->userdata('id') == "Guest"){
 			$this->session->unset_userdata('id');
 			session_destroy();
@@ -30,62 +29,13 @@ class Home extends CI_Controller {
 	}
 
 	public function index(){
-		$data = array();
-		if($this->input->get('tracking_no')){
-			$tracking_no = $this->input->get('tracking_no');
-			$where['tracking_no'] 	= $tracking_no;
-			$shipment_list 					= $this->shipment_mod->shipment_list_db($where);
-			if(count($shipment_list) > 0){
-				unset($where);
-				$where['id_shipment'] 	= $shipment_list[0]['id'];
-				$history_list 					= $this->shipment_mod->shipment_history_list_db($where);
-				$data['shipment'] 			= $shipment_list[0];
-				$data['history_list'] 	= $history_list;
-			}
-	
-			$data['tracking_no'] 		= $tracking_no;
-		}
-		$data['branch'] = $this->shipment_mod->branch_list_db(array("name != 'NONE'" => null));
-
-		$this->load->view('home/landing_page', $data);
-	}
-
-	public function tracking_xpdc($id){
-		$where['id'] 						= $id;
-		$shipment_list 					= $this->shipment_mod->shipment_list_db($where);
-
-		unset($where);
-		echo $id;
-		$where['id_shipment'] 	= $id;
-		$history_list 					= $this->shipment_mod->shipment_history_list_db($where);
-				
-		$data['shipment'] 			= $shipment_list[0];
-		$data['history_list'] 	= $history_list;
-		$this->load->view('home/landing_page', $data);
+		redirect("product/product_list");
 	}
 
 	public function home(){
 		if(!$this->session->userdata('id')){
 			redirect('home/login');
 		}
-		// redirect('shipment/shipment_list');
-
-		$where['shipment.status_delete'] 	= 1;
-		if($this->session->userdata('branch')){
-			if($this->session->userdata('branch') != "NONE"){
-				$where["(shipment.assign_branch LIKE '%".$this->session->userdata('branch')."%' OR shipment.branch LIKE '%".$this->session->userdata('branch')."%')"] 	= NULL;
-			}
-		}
-		else{
-			redirect('home/logout');
-		}
-
-		if($this->session->userdata('role') == "Driver"){
-			$where["(shipment.driver_pickup = ".$this->session->userdata('id')." OR shipment.driver_deliver = ".$this->session->userdata('id').")"] 	= NULL;
-		}
-
-		$summary_list 					= $this->shipment_mod->summary_per_status($where);
-		$data['summary_list'] 	= $summary_list[0];
 
 		$data['subview'] 			= 'home/home';
 		$data['meta_title'] 	= 'Home';
@@ -94,7 +44,7 @@ class Home extends CI_Controller {
 
 	public function login(){
 		if($this->session->userdata('id')){
-			redirect('home/home');
+			redirect('product/product_list');
 		}
 		$data['meta_title'] 	= 'Login';
 		$this->load->view('home/login');
@@ -116,7 +66,7 @@ class Home extends CI_Controller {
 				"branch" 			=> $user['branch'],
 			);
 			$this->session->set_userdata($session_user);
-			redirect('home/home');
+			redirect('product/product_list');
 		}
 		else{
 			$this->session->set_flashdata('error', 'Email or Password is Wrong!');
