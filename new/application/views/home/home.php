@@ -69,39 +69,47 @@
       <div class="col-lg-8 col-md-8">
         <ul class="filter__controls">
           <li class="active" data-filter="*">All</li>
-          <li data-filter=".women">Women’s</li>
-          <li data-filter=".men">Men’s</li>
-          <li data-filter=".kid">Kid’s</li>
-          <li data-filter=".accessories">Accessories</li>
-          <li data-filter=".cosmetic">Cosmetics</li>
+          <?php foreach ($category_list as $key => $value): ?>
+          <li data-filter=".<?php echo $value ?>"><?php echo $value ?></li>
+          <?php endforeach; ?>
         </ul>
       </div>
     </div>
     <div class="row property__gallery">
-      <div class="col-lg-3 col-md-4 col-sm-6 mix women">
-        <div class="product__item">
-          <div class="product__item__pic set-bg" data-setbg="<?php echo base_url() ?>assets/img/product/product-1.jpg">
-            <div class="label new">New</div>
-            <ul class="product__hover">
-              <li><a href="<?php echo base_url() ?>assets/img/product/product-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-              <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-              <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-            </ul>
-          </div>
-          <div class="product__item__text">
-            <h6><a href="#">Buttons tweed blazer</a></h6>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+      <?php 
+        foreach ($product_list as $key => $value): 
+          $category_arr = [];
+          foreach (explode(";", $value['category']) as $category) {
+            if(isset($category_list[$category])){
+              $category_arr[] = $category_list[$category] ;
+            }
+          }
+      ?>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix <?php echo join(" ", $category_arr); ?>">
+          <div class="product__item">
+            <div class="product__item__pic set-bg" data-setbg="<?php echo base_url() ?>admin/file/image/<?php echo $value['main_picture'] ?>">
+              <div class="label new">New</div>
+              <ul class="product__hover">
+                <li><a href="<?php echo base_url() ?>admin/file/image/<?php echo $value['main_picture'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
+                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+              </ul>
             </div>
-            <div class="product__price">$ 59.0</div>
+            <div class="product__item__text">
+              <h6><a href="<?php echo base_url() ?>shop/detail/<?php echo str_pad($value['id'], 6, "0", STR_PAD_LEFT); ?>"><?php echo $value['name'] ?></a></h6>
+              <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <div class="product__price">Rp. <?php echo number_format($value['discount_price'] == 0 ? $value['price'] : $value['discount_price'],2,",",".") ?></a></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 mix men">
+      <?php endforeach; ?>
+      <!-- <div class="col-lg-3 col-md-4 col-sm-6 mix men">
         <div class="product__item">
           <div class="product__item__pic set-bg" data-setbg="<?php echo base_url() ?>assets/img/product/product-2.jpg">
             <ul class="product__hover">
@@ -257,14 +265,14 @@
             <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
 <!-- Product Section End -->
 
 <!-- Banner Section Begin -->
-<section class="banner set-bg" data-setbg="<?php echo base_url() ?>assets/img/banner/banner-1.jpg">
+<!-- <section class="banner set-bg" data-setbg="<?php echo base_url() ?>assets/img/banner/banner-1.jpg">
   <div class="container">
     <div class="row">
       <div class="col-xl-7 col-lg-8 m-auto">
@@ -294,11 +302,11 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- Banner Section End -->
 
 <!-- Trend Section Begin -->
-<section class="trend spad">
+<!-- <section class="trend spad">
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-6">
@@ -468,11 +476,11 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- Trend Section End -->
 
 <!-- Discount Section Begin -->
-<section class="discount">
+<!-- <section class="discount">
   <div class="container">
     <div class="row">
       <div class="col-lg-6 p-0">
@@ -510,7 +518,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- Discount Section End -->
 
 <!-- Services Section Begin -->

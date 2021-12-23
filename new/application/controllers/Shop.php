@@ -16,4 +16,14 @@ class Shop extends CI_Controller {
 		$data['meta_title'] 	= 'Shop';
 		$this->load->view('index', $data);
 	}
+
+	public function detail($code){
+		$code = (int)$code;
+		print_r($code);
+		exit;
+
+		$data['subview'] 			= 'shop/detail';
+		$data['meta_title'] 	= 'Shop';
+		$this->load->view('index', $data);
+	}
 }
