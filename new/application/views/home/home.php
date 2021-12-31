@@ -91,8 +91,8 @@
               <div class="label new">New</div>
               <ul class="product__hover">
                 <li><a href="<?php echo base_url() ?>admin/file/image/<?php echo $value['main_picture'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                <li><a href="<?php echo base_url() ?>shop/detail/<?php echo str_pad($value['id'], 6, "0", STR_PAD_LEFT); ?>"><span class="icon_heart_alt"></span></a></li>
+                <!-- <li><a href="#"><span class="icon_bag_alt"></span></a></li> -->
               </ul>
             </div>
             <div class="product__item__text">
