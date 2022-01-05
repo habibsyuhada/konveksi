@@ -32,6 +32,10 @@
                     <label>Short Description</label>
                     <textarea name="description" rows="4" class="form-control" required></textarea>
                   </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="full_description" rows="6" class="form-control" required></textarea>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
@@ -45,8 +49,8 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label>Description</label>
-                    <textarea name="full_description" rows="9" class="form-control" required></textarea>
+                    <label>SVG Path</label>
+                    <textarea name="svg" rows="4" class="form-control"></textarea>
                   </div>
                 </div>
               </div>

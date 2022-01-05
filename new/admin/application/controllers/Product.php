@@ -75,6 +75,7 @@ class Product extends CI_Controller
 			'name' 				  		=> $post['name'],
 			'main_picture' 			=> $main_picture,
 			'price' 						=> $post['price'],
+			'svg' 							=> $post['svg'],
 			'discount_price'		=> $post['discount_price'],
 			'category' 					=> ";".join(";", $post['category']).";",
 			'description' 			=> $post['description'],
@@ -105,19 +106,41 @@ class Product extends CI_Controller
 	public function product_update_process(){
 		$post = $this->input->post();
 
+		$main_picture = '';
+		if($_FILES['main_picture']['name'] != '') {
+			$upload_path = 'file/image/';
+			$this->load->library('upload');
+	
+			$config['upload_path']          = $upload_path;
+			$config['file_name']            = 'img_thumb'.date('YmdHis');
+			$config['allowed_types']        = 'gif|jpg|png|jpeg';
+			$config['overwrite'] 						= TRUE;
+			$this->upload->initialize($config);
+			if (!$this->upload->do_upload('main_picture')) {
+				$this->session->set_flashdata('error', $this->upload->display_errors());
+				redirect($_SERVER['HTTP_REFERER']);
+				return false;
+			}
+			$main_picture = $this->upload->data("file_name");
+		}
+
     $form_data = array(
 			'name' 				  		=> $post['name'],
 			'price' 						=> $post['price'],
+			'svg' 							=> $post['svg'],
 			'discount_price'		=> $post['discount_price'],
 			'category' 					=> ";".join(";", $post['category']).";",
 			'description' 			=> $post['description'],
 			'full_description' 	=> $post['full_description'],
 		);
+		if($main_picture != ''){
+			$form_data['main_picture'] = $main_picture;
+		}
 		$where['id'] = $post['id'];
 		$this->product_mod->product_update_process_db($form_data, $where);
 
 		$this->session->set_flashdata('success', 'Your Product data has been Updated!');
-		redirect('product/product_update/'.$post['id']);
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	public function product_delete_process($link){

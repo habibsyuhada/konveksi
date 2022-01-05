@@ -5,6 +5,7 @@ class Shop extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		$this->load->model('general_mod');
 	}
 
 	public function index(){
@@ -19,8 +20,15 @@ class Shop extends CI_Controller {
 
 	public function detail($code){
 		$code = (int)$code;
-		print_r($code);
-		exit;
+
+		$datadb = $this->general_mod->product_list_db(['id' => $code]);
+		$product = $datadb[0];
+
+		$datadb = $this->general_mod->product_list_db(['id !=' => $code]);
+		$suggest_product = $datadb;
+
+		$data['product'] = $product;
+		$data['suggest_product'] = $suggest_product;
 
 		$data['subview'] 			= 'shop/detail';
 		$data['meta_title'] 	= 'Shop';

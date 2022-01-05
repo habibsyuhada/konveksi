@@ -33,6 +33,10 @@
                     <label>Short Description</label>
                     <textarea name="description" rows="4" class="form-control" required><?php echo $product['description'] ?></textarea>
                   </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="full_description" rows="6" class="form-control" required><?php echo $product['full_description'] ?></textarea>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
@@ -54,8 +58,8 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label>Description</label>
-                    <textarea name="full_description" rows="9" class="form-control" required><?php echo $product['full_description'] ?></textarea>
+                    <label>SVG Path</label>
+                    <textarea name="svg" rows="4" class="form-control"><?php echo $product['svg'] ?></textarea>
                   </div>
                 </div>
               </div>

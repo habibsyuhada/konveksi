@@ -1,12 +1,28 @@
+<?php
+  $picture_list = [$product['main_picture']];
+?>
+<style>
+  .product-container {
+    position: relative;
+  }
+  .product-svg {
+    position: absolute;
+    z-index: 2;
+    mix-blend-mode: multiply;
+  }
+  .checkmark{
+    border: 1px solid #000;
+  }
+</style>
 <!-- Breadcrumb Begin -->
 <div class="breadcrumb-option">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
         <div class="breadcrumb__links">
-          <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-          <a href="#">Women’s </a>
-          <span>Essential structured blazer</span>
+          <a href="<?= base_url() ?>"><i class="fa fa-home"></i> Home</a>
+          <!-- <a href="#">Women’s </a> -->
+          <span><?= $product['name'] ?></span>
         </div>
       </div>
     </div>
@@ -21,44 +37,44 @@
       <div class="col-lg-6">
         <div class="product__details__pic">
           <div class="product__details__pic__left product__thumb nice-scroll">
-            <a class="pt active" href="#product-1">
-              <img src="img/product/details/thumb-1.jpg" alt="">
-            </a>
-            <a class="pt" href="#product-2">
-              <img src="img/product/details/thumb-2.jpg" alt="">
-            </a>
-            <a class="pt" href="#product-3">
-              <img src="img/product/details/thumb-3.jpg" alt="">
-            </a>
-            <a class="pt" href="#product-4">
-              <img src="img/product/details/thumb-4.jpg" alt="">
-            </a>
+            <?php foreach ($picture_list as $key => $value): ?>
+              <a class="pt active" href="#product-<?= $key ?>">
+                <img src="<?php echo base_url() ?>admin/file/image/<?= $product['main_picture'] ?>" alt="">
+              </a>
+            <?php endforeach; ?>
           </div>
           <div class="product__details__slider__content">
             <div class="product__details__pic__slider owl-carousel">
-              <img data-hash="product-1" class="product__big__img" src="img/product/details/product-1.jpg" alt="">
-              <img data-hash="product-2" class="product__big__img" src="img/product/details/product-3.jpg" alt="">
-              <img data-hash="product-3" class="product__big__img" src="img/product/details/product-2.jpg" alt="">
-              <img data-hash="product-4" class="product__big__img" src="img/product/details/product-4.jpg" alt="">
+              <?php foreach ($picture_list as $key => $value): ?>
+                <div class="product-container">
+                  <svg class="product-svg">
+                    <path class="product-shape" d="<?= $product['svg'] ?>" />
+                  </svg>
+                  <img data-hash="product--<?= $key ?>" class="product__big__img" src="<?php echo base_url() ?>admin/file/image/<?= $product['main_picture'] ?>" alt="">
+                </div>
+              <?php endforeach; ?>
             </div>
           </div>
         </div>
       </div>
       <div class="col-lg-6">
         <div class="product__details__text">
-          <h3>Essential structured blazer <span>Brand: SKMEIMore Men Watches from SKMEI</span></h3>
+          <h3><?= $product['name'] ?> <span><?php //Subtitle ?></span></h3>
           <div class="rating">
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
-            <span>( 138 reviews )</span>
+            <!-- <span>( 138 reviews )</span> -->
           </div>
-          <div class="product__details__price">$ 75.0 <span>$ 83.0</span></div>
-          <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
-          magni lores eos qui ratione voluptatem sequi nesciunt.</p>
-          <div class="product__details__button">
+          <?php if($product['discount_price'] == 0): ?>
+            <div class="product__details__price">Rp <?= number_format($product['price'], 2,',', '.') ?></div>
+          <?php else: ?>
+            <div class="product__details__price">Rp <?= number_format($product['discount_price'], 2,',', '.') ?> <span>Rp <?= number_format($product['price'], 2,',', '.') ?></span></div>
+          <?php endif; ?>
+          <p><?= $product['description'] ?></p>
+          <!-- <div class="product__details__button">
             <div class="quantity">
               <span>Quantity:</span>
               <div class="pro-qty">
@@ -70,7 +86,7 @@
               <li><a href="#"><span class="icon_heart_alt"></span></a></li>
               <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
             </ul>
-          </div>
+          </div> -->
           <div class="product__details__widget">
             <ul>
               <li>
@@ -78,7 +94,7 @@
                 <div class="stock__checkbox">
                   <label for="stockin">
                     In Stock
-                    <input type="checkbox" id="stockin">
+                    <input type="checkbox" id="stockin" disabled <?= ($product['stock_status'] == 0 ? '' : 'checked') ?>>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -88,15 +104,15 @@
                 <div class="color__checkbox">
                   <label for="red">
                     <input type="radio" name="color__radio" id="red" checked>
-                    <span class="checkmark"></span>
+                    <span class="checkmark" onclick="change_color(this)" style="background-color: #ffffff;"></span>
                   </label>
                   <label for="black">
                     <input type="radio" name="color__radio" id="black">
-                    <span class="checkmark black-bg"></span>
+                    <span class="checkmark" onclick="change_color(this)" style="background-color: #ff0000;"></span>
                   </label>
                   <label for="grey">
                     <input type="radio" name="color__radio" id="grey">
-                    <span class="checkmark grey-bg"></span>
+                    <span class="checkmark" onclick="change_color(this)" style="background-color: #ffff00;"></span>
                   </label>
                 </div>
               </li>
@@ -123,7 +139,7 @@
               </li>
               <li>
                 <span>Promotions:</span>
-                <p>Free shipping</p>
+                <p><?= ($product['promotion'] == '' ? '-' : $product['promotion']) ?></p>
               </li>
             </ul>
           </div>
@@ -135,26 +151,17 @@
             <li class="nav-item">
               <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
-            </li>
+            </li> -->
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tabs-1" role="tabpanel">
               <h6>Description</h6>
-              <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-              consequat massa quis enim.</p>
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-              quis, sem.</p>
+              <p><?= $product['full_description'] ?></p>
             </div>
             <div class="tab-pane" id="tabs-2" role="tabpanel">
               <h6>Specification</h6>
@@ -186,24 +193,28 @@
         </div>
       </div>
     </div>
+    <?php if(count($suggest_product) > 0): ?>
     <div class="row">
       <div class="col-lg-12 text-center">
         <div class="related__title">
           <h5>RELATED PRODUCTS</h5>
         </div>
       </div>
+      <?php
+        foreach ($suggest_product as $key => $value): 
+      ?>
       <div class="col-lg-3 col-md-4 col-sm-6">
         <div class="product__item">
-          <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-1.jpg">
+          <div class="product__item__pic set-bg" data-setbg="<?php echo base_url() ?>admin/file/image/<?php echo $value['main_picture'] ?>">
             <div class="label new">New</div>
             <ul class="product__hover">
-              <li><a href="img/product/related/rp-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-              <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-              <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+              <li><a href="<?php echo base_url() ?>admin/file/image/<?php echo $value['main_picture'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
+              <li><a href="<?php echo base_url() ?>shop/detail/<?php echo str_pad($value['id'], 6, "0", STR_PAD_LEFT); ?>"><span class="icon_heart_alt"></span></a></li>
+              <!-- <li><a href="#"><span class="icon_bag_alt"></span></a></li> -->
             </ul>
           </div>
           <div class="product__item__text">
-            <h6><a href="#">Buttons tweed blazer</a></h6>
+            <h6><a href="<?php echo base_url() ?>shop/detail/<?php echo str_pad($value['id'], 6, "0", STR_PAD_LEFT); ?>"><?= $value['name'] ?></a></h6>
             <div class="rating">
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
@@ -211,78 +222,24 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
             </div>
-            <div class="product__price">$ 59.0</div>
+            <div class="product__price">Rp <?= number_format(($product['discount_price'] == 0 ? $product['price'] : $product['discount_price']), 2,',', '.') ?></div>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="product__item">
-          <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-2.jpg">
-            <ul class="product__hover">
-              <li><a href="img/product/related/rp-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-              <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-              <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-            </ul>
-          </div>
-          <div class="product__item__text">
-            <h6><a href="#">Flowy striped skirt</a></h6>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <div class="product__price">$ 49.0</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="product__item">
-          <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-3.jpg">
-            <div class="label stockout">out of stock</div>
-            <ul class="product__hover">
-              <li><a href="img/product/related/rp-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-              <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-              <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-            </ul>
-          </div>
-          <div class="product__item__text">
-            <h6><a href="#">Cotton T-Shirt</a></h6>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <div class="product__price">$ 59.0</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="product__item">
-          <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-4.jpg">
-            <ul class="product__hover">
-              <li><a href="img/product/related/rp-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-              <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-              <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-            </ul>
-          </div>
-          <div class="product__item__text">
-            <h6><a href="#">Slim striped pocket shirt</a></h6>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <div class="product__price">$ 59.0</div>
-          </div>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
+    <?php endif; ?>
   </div>
 </section>
 <!-- Product Details Section End -->
+<script>
+  $(document).ready(function() {
+    var width = $('.product-svg').closest('div').find('img').prop('naturalWidth');
+    var height = $('.product-svg').closest('div').find('img').prop('naturalHeight');
+    $('.product-svg').attr('viewBox', '0 0 '+width+' '+height);
+  });
+
+  function change_color(btn) {
+    $('.product-shape').css('fill', $(btn).css('background-color'));
+  }
+</script>
