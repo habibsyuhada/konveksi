@@ -75,7 +75,6 @@ class Product extends CI_Controller
 			'name' 				  		=> $post['name'],
 			'main_picture' 			=> $main_picture,
 			'price' 						=> $post['price'],
-			'svg' 							=> $post['svg'],
 			'discount_price'		=> $post['discount_price'],
 			'category' 					=> ";".join(";", $post['category']).";",
 			'description' 			=> $post['description'],
@@ -95,6 +94,9 @@ class Product extends CI_Controller
 			redirect("product/product_list");
 		}
 		$data['product'] 	= $product_list[0];
+
+		$data['product_color_list'] = $this->product_mod->product_color_list_db(['id_product' => $id]);
+		$data['product_picture_list'] = $this->product_mod->product_picture_list_db(['id_product' => $id]);
 
 		$data['category_list'] 	= $this->category_mod->category_list_db();
 
@@ -127,7 +129,6 @@ class Product extends CI_Controller
     $form_data = array(
 			'name' 				  		=> $post['name'],
 			'price' 						=> $post['price'],
-			'svg' 							=> $post['svg'],
 			'discount_price'		=> $post['discount_price'],
 			'category' 					=> ";".join(";", $post['category']).";",
 			'description' 			=> $post['description'],
@@ -149,6 +150,65 @@ class Product extends CI_Controller
 
 		$this->session->set_flashdata('success', 'Your Product data has been Deleted!');
 		redirect('product/product_list');
+	}
+
+	public function product_color_new_process(){
+		$post = $this->input->post();
+		$form_data = array(
+			'id_product' => $post['id_product'],
+			'color_code' => $post['color_code'],
+		);
+		$id = $this->product_mod->product_color_create_process_db($form_data);
+
+		$datadb = $this->product_mod->product_color_list_db(['id_product' => $post['id_product']]);
+		$color = '#ffffff';
+		if(count($datadb) > 0){
+			$color = $datadb[0]['color_code'];
+		}
+		$form_data = array(
+			'color_code' 				  		=> $color,
+		);
+		$where['id'] = $post['id_product'];
+		$this->product_mod->product_update_process_db($form_data, $where);
+
+		$this->session->set_flashdata('success', 'Your Product data has been Created!');
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	public function product_color_delete_process($id){
+		$this->product_mod->product_color_delete_process_db(['id' => $id]);
+
+		$this->session->set_flashdata('success', 'Your Product data has been Deleted!');
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	public function product_picture_new_process(){
+		$post = $this->input->post();
+
+    $upload_path = 'file/image/';
+		$this->load->library('upload');
+
+		$config['upload_path']          = $upload_path;
+		$config['file_name']            = 'img_detail_thumb'.date('YmdHis');
+		$config['allowed_types']        = 'gif|jpg|png|jpeg';
+		$config['overwrite'] 						= TRUE;
+		$this->upload->initialize($config);
+		if (!$this->upload->do_upload('main_picture')) {
+			$this->session->set_flashdata('error', $this->upload->display_errors());
+			redirect("product/product_create");
+			return false;
+		}
+    $main_picture = $this->upload->data("file_name");
+
+    $form_data = array(
+			'picture' 			=> $main_picture,
+			'id_product' 				=> $post['id_product'],
+			'svg' 							=> $post['svg'],
+		);
+		$id_product = $this->product_mod->product_picture_create_process_db($form_data);
+
+		$this->session->set_flashdata('success', 'Your Product data has been Created!');
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 		
 }

@@ -27,6 +27,9 @@ class Shop extends CI_Controller {
 		$datadb = $this->general_mod->product_list_db(['id !=' => $code]);
 		$suggest_product = $datadb;
 
+		$data['product_color_list'] = $this->general_mod->product_color_list_db(['id_product' => $code]);
+		$data['product_picture_list'] = $this->general_mod->product_picture_list_db(['id_product' => $code]);
+
 		$data['product'] = $product;
 		$data['suggest_product'] = $suggest_product;
 

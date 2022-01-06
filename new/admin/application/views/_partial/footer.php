@@ -30,5 +30,7 @@
     	// 	});
 			// });
 		</script>
+  	<script src="<?php echo base_url(); ?>assets/dist/js/theme.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/form-picker.js"></script>
 	</body>	
 </html>		

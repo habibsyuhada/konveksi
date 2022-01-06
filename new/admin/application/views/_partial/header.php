@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/owl.carousel/dist/assets/owl.theme.default.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-toast-plugin/dist/jquery.toast.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/bootstrap-tagsinput/dist/tagsinput-bootstrap4.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jquery-minicolors/jquery.minicolors.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/theme.min.css">
   <script src="<?php echo base_url(); ?>assets/src/js/vendor/modernizr-2.8.3.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/src/js/vendor/jquery-3.3.1.min.js"></script>
@@ -49,7 +50,8 @@
   <script src="<?php echo base_url(); ?>assets/plugins/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-tagsinput/dist/tagsinput-bootstrap4.js"></script>
-  <script src="<?php echo base_url(); ?>assets/dist/js/theme.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/plugins/jquery-minicolors/jquery.minicolors.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/plugins/datedropper/datedropper.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/alerts.js?v=2"></script>
   <!-- <script src="<?php echo base_url(); ?>assets/js/datatables.js"></script> -->
   <style>

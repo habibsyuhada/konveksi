@@ -522,7 +522,7 @@
 <!-- Discount Section End -->
 
 <!-- Services Section Begin -->
-<section class="services spad">
+<!-- <section class="services spad">
   <div class="container">
     <div class="row">
       <div class="col-lg-3 col-md-4 col-sm-6">
@@ -555,7 +555,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <!-- Services Section End -->
 
 <!-- Instagram Begin -->

@@ -30,4 +30,28 @@ class General_mod extends CI_Model {
 		return $query->result_array();
 	}
 
+	function product_color_list_db($where = null){
+		if(isset($where)){
+      if(count($where) > 0){
+        $this->db->where($where);
+      }
+		}
+		$this->db->order_by("created_date", "ASC");
+		$query = $this->db->get('product_color');
+		
+		return $query->result_array();
+	}
+
+	function product_picture_list_db($where = null){
+		if(isset($where)){
+      if(count($where) > 0){
+        $this->db->where($where);
+      }
+		}
+		$this->db->order_by("created_date", "ASC");
+		$query = $this->db->get('product_picture');
+		
+		return $query->result_array();
+	}
+
 }

@@ -1,6 +1,3 @@
-<?php
-  $picture_list = [$product['main_picture']];
-?>
 <style>
   .product-container {
     position: relative;
@@ -37,20 +34,25 @@
       <div class="col-lg-6">
         <div class="product__details__pic">
           <div class="product__details__pic__left product__thumb nice-scroll">
-            <?php foreach ($picture_list as $key => $value): ?>
+            <?php foreach ($product_picture_list as $key => $value): ?>
               <a class="pt active" href="#product-<?= $key ?>">
-                <img src="<?php echo base_url() ?>admin/file/image/<?= $product['main_picture'] ?>" alt="">
+                <div class="product-container">
+                  <svg class="product-svg">
+                    <path class="product-shape" style="fill: <?= $product['color_code'] ?>" d="<?= $value['svg'] ?>" />
+                  </svg>
+                  <img data-hash="product--<?= $key ?>" class="product__big__img" src="<?php echo base_url() ?>admin/file/image/<?= $value['picture'] ?>" alt="">
+                </div>
               </a>
             <?php endforeach; ?>
           </div>
           <div class="product__details__slider__content">
             <div class="product__details__pic__slider owl-carousel">
-              <?php foreach ($picture_list as $key => $value): ?>
+              <?php foreach ($product_picture_list as $key => $value): ?>
                 <div class="product-container">
                   <svg class="product-svg">
-                    <path class="product-shape" d="<?= $product['svg'] ?>" />
+                    <path class="product-shape" style="fill: <?= $product['color_code'] ?>" d="<?= $value['svg'] ?>" />
                   </svg>
-                  <img data-hash="product--<?= $key ?>" class="product__big__img" src="<?php echo base_url() ?>admin/file/image/<?= $product['main_picture'] ?>" alt="">
+                  <img data-hash="product--<?= $key ?>" class="product__big__img" src="<?php echo base_url() ?>admin/file/image/<?= $value['picture'] ?>" alt="">
                 </div>
               <?php endforeach; ?>
             </div>
@@ -102,18 +104,13 @@
               <li>
                 <span>Available color:</span>
                 <div class="color__checkbox">
-                  <label for="red">
-                    <input type="radio" name="color__radio" id="red" checked>
-                    <span class="checkmark" onclick="change_color(this)" style="background-color: #ffffff;"></span>
-                  </label>
-                  <label for="black">
-                    <input type="radio" name="color__radio" id="black">
-                    <span class="checkmark" onclick="change_color(this)" style="background-color: #ff0000;"></span>
-                  </label>
-                  <label for="grey">
-                    <input type="radio" name="color__radio" id="grey">
-                    <span class="checkmark" onclick="change_color(this)" style="background-color: #ffff00;"></span>
-                  </label>
+                  <?php foreach ($product_color_list as $key => $value): ?>
+                    <label for="<?= $value['color_code'] ?>">
+                      <input type="radio" name="color__radio" id="<?= $value['color_code'] ?>">
+                      <span class="checkmark" onclick="change_color(this)" style="background-color: <?= $value['color_code'] ?>;"></span>
+                    </label>
+                  <?php endforeach ?>
+                  <label></label>
                 </div>
               </li>
               <li>
@@ -234,9 +231,11 @@
 <!-- Product Details Section End -->
 <script>
   $(document).ready(function() {
-    var width = $('.product-svg').closest('div').find('img').prop('naturalWidth');
-    var height = $('.product-svg').closest('div').find('img').prop('naturalHeight');
-    $('.product-svg').attr('viewBox', '0 0 '+width+' '+height);
+    $('.product-svg').each(function(i, elem) {
+      var width = $(elem).closest('div').find('img').prop('naturalWidth');
+      var height = $(elem).closest('div').find('img').prop('naturalHeight');
+      $(elem).attr('viewBox', '0 0 '+width+' '+height);
+    });
   });
 
   function change_color(btn) {
