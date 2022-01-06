@@ -76,6 +76,7 @@ class Product extends CI_Controller
 			'main_picture' 			=> $main_picture,
 			'price' 						=> $post['price'],
 			'discount_price'		=> $post['discount_price'],
+			'promotion' 				=> $post['promotion'],
 			'category' 					=> ";".join(";", $post['category']).";",
 			'description' 			=> $post['description'],
 			'full_description' 	=> $post['full_description'],
@@ -131,6 +132,7 @@ class Product extends CI_Controller
 			'price' 						=> $post['price'],
 			'discount_price'		=> $post['discount_price'],
 			'category' 					=> ";".join(";", $post['category']).";",
+			'promotion' 				=> $post['promotion'],
 			'description' 			=> $post['description'],
 			'full_description' 	=> $post['full_description'],
 		);

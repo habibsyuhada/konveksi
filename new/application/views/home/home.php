@@ -2,7 +2,7 @@
 <section class="categories">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-6 p-0">
+      <div class="col-lg-12 p-0">
         <div class="categories__item categories__large__item set-bg" data-setbg="<?php echo base_url() ?>assets/img/categories/category-1.jpg">
           <div class="categories__text">
             <h1>Women’s fashion</h1>
@@ -12,7 +12,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
+      <!-- <div class="col-lg-6">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-6 p-0">
             <div class="categories__item set-bg" data-setbg="<?php echo base_url() ?>assets/img/categories/category-2.jpg">
@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
@@ -563,51 +563,51 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img/instagram/insta-1.jpg">
-          <div class="instagram__text">
+        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img_new/instagram/1.jpg">
+          <!-- <div class="instagram__text">
             <i class="fa fa-instagram"></i>
             <a href="#">@ ashion_shop</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img/instagram/insta-2.jpg">
-          <div class="instagram__text">
+        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img_new/instagram/2.jpg">
+          <!-- <div class="instagram__text">
             <i class="fa fa-instagram"></i>
             <a href="#">@ ashion_shop</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img/instagram/insta-3.jpg">
-          <div class="instagram__text">
+        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img_new/instagram/3.jpg">
+          <!-- <div class="instagram__text">
             <i class="fa fa-instagram"></i>
             <a href="#">@ ashion_shop</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img/instagram/insta-4.jpg">
-          <div class="instagram__text">
+        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img_new/instagram/4.jpg">
+          <!-- <div class="instagram__text">
             <i class="fa fa-instagram"></i>
             <a href="#">@ ashion_shop</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img/instagram/insta-5.jpg">
-          <div class="instagram__text">
+        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img_new/instagram/5.jpg">
+          <!-- <div class="instagram__text">
             <i class="fa fa-instagram"></i>
             <a href="#">@ ashion_shop</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img/instagram/insta-6.jpg">
-          <div class="instagram__text">
+        <div class="instagram__item set-bg" data-setbg="<?php echo base_url() ?>assets/img_new/instagram/6.jpg">
+          <!-- <div class="instagram__text">
             <i class="fa fa-instagram"></i>
             <a href="#">@ ashion_shop</a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@
 								<?php if ($this->session->userdata('id') == "Guest") : ?>
 									<a class="dropdown-item" href="<?php echo base_url(); ?>"><i class="ik ik-home dropdown-icon"></i> Home Page</a>
 								<?php else : ?>
-									<a class="dropdown-item" href="<?php echo base_url(); ?>user/user_password"><i class="fas fa-key dropdown-icon"></i> Change Password</a>
+									<!-- <a class="dropdown-item" href="<?php echo base_url(); ?>user/user_password"><i class="fas fa-key dropdown-icon"></i> Change Password</a> -->
 									<a class="dropdown-item" href="<?php echo base_url(); ?>home/logout"><i class="ik ik-power dropdown-icon"></i> Logout</a>
 								<?php endif; ?>
 							</div>

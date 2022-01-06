@@ -49,8 +49,8 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label>SVG Path</label>
-                    <textarea name="svg" rows="4" class="form-control"></textarea>
+                    <label>Promotion</label>
+                    <input type="text" class="form-control" name="promotion" placeholder="Promotion" required>
                   </div>
                 </div>
               </div>

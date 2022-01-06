@@ -19,7 +19,7 @@
                   </div>
                   <div class="form-group">
                     <label>Discount Price</label>
-                    <input type="number" class="form-control" name="discount_price" value="<?php echo $product['discount_price'] ?>" placeholder="Price">
+                    <input type="number" class="form-control" name="discount_price" value="<?php echo $product['discount_price'] ?>" placeholder="Discount Price">
                   </div>
                   <div class="form-group">
                     <label>Category</label>
@@ -56,6 +56,10 @@
                         <button class="file-upload-browse btn btn-info" type="button">Upload</button>
                       </span>
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Promotion</label>
+                    <input type="text" class="form-control" name="promotion" value="<?php echo $product['promotion'] ?>" placeholder="Promotion" required>
                   </div>
                 </div>
               </div>
