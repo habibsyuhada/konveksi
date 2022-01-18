@@ -13,6 +13,41 @@ class Shop extends CI_Controller {
 	}
 
 	public function list(){
+		$get = $this->input->get();
+		if(@$get['page'] == ""){
+			$get['page'] = 1;
+		}
+		if(@$get['category'] == ""){
+			$get['category'] = '';
+		}
+		$data['page'] = $get['page'];
+		$category = explode("; ", $get['category']);
+		if(count($category) == 1 && $category[0] == ''){
+			$category = [];
+		}
+		$data['category'] = $category;
+
+		$data['category_list'] = $this->general_mod->category_list_db();
+		$category_list = [];
+		foreach ($data['category_list'] as $key => $value) {
+			$category_list[$value['name']] = $value['id'];
+		}
+
+		$where = null;
+		if(count($category) > 0){
+			$where_str = "";
+			foreach ($category as $key => $value) {
+				if($key > 0){
+					$where_str .= " AND ";
+				}
+				$where_str .= "category LIKE '%;".$category_list[$value].";%'";
+			}
+			$where[$where_str] = NULL;
+		}
+
+		$data['product_list'] = $this->general_mod->product_list_serverside_db('data', $get['page'], $where);
+		$data['product_count_all_list'] = $this->general_mod->product_list_serverside_db('count_all', $get['page'], $where);
+
 		$data['subview'] 			= 'shop/list';
 		$data['meta_title'] 	= 'Shop';
 		$this->load->view('index', $data);
@@ -25,7 +60,12 @@ class Shop extends CI_Controller {
 		$product = $datadb[0];
 
 		$datadb = $this->general_mod->product_list_db(['id !=' => $code]);
-		$suggest_product = $datadb;
+		$suggest_product = [];
+		foreach ($datadb as $key => $value) {
+			if(count($suggest_product) < 4){
+				$suggest_product[] = $value;
+			}
+		}
 
 		$data['product_color_list'] = $this->general_mod->product_color_list_db(['id_product' => $code]);
 		$data['product_picture_list'] = $this->general_mod->product_picture_list_db(['id_product' => $code]);
