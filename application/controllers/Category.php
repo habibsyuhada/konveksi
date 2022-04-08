@@ -46,43 +46,10 @@ class Category extends CI_Controller
 	
 	public function category_create_process(){
 		$post = $this->input->post();
-    $post['link'] = strtolower($post['link']);
-
-    $upload_path = 'file/image/';
-		$this->load->library('upload');
-
-		$config['upload_path']          = $upload_path;
-		$config['file_name']            = 'img_'.$post['link'].'_thumb'.date('YmdHis');
-		$config['allowed_types']        = 'gif|jpg|png|jpeg';
-		$config['overwrite'] 						= TRUE;
-		$this->upload->initialize($config);
-		if (!$this->upload->do_upload('picture_thumb')) {
-			$this->session->set_flashdata('error', $this->upload->display_errors());
-			redirect("category/category_create");
-			return false;
-		}
-    $picture_thumb = $this->upload->data("file_name");
-
-		$config['upload_path']          = $upload_path;
-		$config['file_name']            = 'img_'.$post['link'].'_main'.date('YmdHis');
-		$config['allowed_types']        = 'gif|jpg|png|jpeg';
-		$config['overwrite'] 						= TRUE;
-		$this->upload->initialize($config);
-		if (!$this->upload->do_upload('picture_main')) {
-			$this->session->set_flashdata('error', $this->upload->display_errors());
-			redirect("category/category_create");
-			return false;
-		}
-    $picture_main = $this->upload->data("file_name");
 
     $form_data = array(
-			'link' 				  => $post['link'],
-			'name' 				  => $post['name'],
-			'picture_thumb' => $picture_thumb,
-			'picture_main' 	=> $picture_main,
-			'price' 				=> $post['price'],
-			'category' 			=> $post['category'],
-			'description' 	=> $post['description'],
+			'category' 		=> $post['category'],
+			'status' 			=> $post['status'],
 		);
 		$id_category = $this->category_mod->category_create_process_db($form_data);
 
@@ -90,8 +57,8 @@ class Category extends CI_Controller
 		redirect('category/category_create');
 	}
 	
-	public function category_update($link){
-		$where['link'] 					= $link;
+	public function category_update($id){
+		$where['id'] 					= $id;
 		$category_list 					= $this->category_mod->category_list_db($where);
 		if(count($category_list) < 1){
 			// $this->session->set_flashdata('error', 'Category Not Found!');
@@ -104,58 +71,28 @@ class Category extends CI_Controller
 		$this->load->view('index', $data);
 	}
 	
-	public function category_update_process($link){
+	public function category_update_process($id){
 		$post = $this->input->post();
-    $post['link'] = strtolower($post['link']);
-
-    $upload_path = 'file/image/';
-		$this->load->library('upload');
-
-		$config['upload_path']          = $upload_path;
-		$config['file_name']            = 'img_'.$post['link'].'_thumb';
-		$config['allowed_types']        = 'gif|jpg|png|jpeg';
-		$config['overwrite'] 						= TRUE;
-		$this->upload->initialize($config);
-		if (!$this->upload->do_upload('picture_thumb')) {
-			$this->session->set_flashdata('error', $this->upload->display_errors());
-			redirect("category/category_update/".$link);
-			return false;
-		}
-    $picture_thumb = $this->upload->data("file_name");
-
-		$config['upload_path']          = $upload_path;
-		$config['file_name']            = 'img_'.$post['link'].'_main';
-		$config['allowed_types']        = 'gif|jpg|png|jpeg';
-		$config['overwrite'] 						= TRUE;
-		$this->upload->initialize($config);
-		if (!$this->upload->do_upload('picture_main')) {
-			$this->session->set_flashdata('error', $this->upload->display_errors());
-			redirect("category/category_update/".$link);
-			return false;
-		}
-    $picture_main = $this->upload->data("file_name");
 
     $form_data = array(
-			'link' 				  => $post['link'],
-			'name' 				  => $post['name'],
-			'picture_thumb' => $picture_thumb,
-			'picture_main' 	=> $picture_main,
-			'price' 				=> $post['price'],
-			'category' 			=> $post['category'],
-			'description' 	=> $post['description'],
+			'category' 		=> $post['category'],
+			'status' 			=> $post['status'],
 		);
-		$where['link'] = $link;
+		$where['id'] = $id;
 		$id_category = $this->category_mod->category_update_process_db($form_data, $where);
 
 		$this->session->set_flashdata('success', 'Your Category data has been Updated!');
-		redirect('category/category_update/'.$post['link']);
+		redirect('category/category_update/'.$id);
 	}
 
-	public function category_delete_process($link){
-		$where['link'] = $link;
-		$this->category_mod->category_delete_process_db($where);
+	public function category_delete_process($id){
+		$form_data = array(
+			'status' 			=> 0,
+		);
+		$where['id'] = $id;
+		$id_category = $this->category_mod->category_update_process_db($form_data, $where);
 
-		$this->session->set_flashdata('success', 'Your Category data has been Deleted!');
+		$this->session->set_flashdata('success', 'Your Category data has been Inactived!');
 		redirect('category/category_list');
 	}
 		

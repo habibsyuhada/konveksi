@@ -24,7 +24,9 @@
                     <label>Category</label>
                     <select class="form-control" name="category" required>
                       <option>---</option>
-                      <option value="Kaos">Kaos</option>
+                      <?php foreach($category_list as $key => $value): ?>
+                      <option value="<?php echo $value['category'] ?>"><?php echo $value['category'] ?></option>
+                      <?php endforeach; ?>
                     </select>
                   </div>
                   <div class="form-group">

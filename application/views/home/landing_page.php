@@ -157,7 +157,7 @@
             
             <div class="navbar-btn d-none d-sm-inline-block">
               <ul>
-                <li><a class="solid" href="#">BELI SEKARANG</a></li>
+                <li><a class="solid" href="https://wa.me/6281365538139?text=Halo, saya mau beli barang ini, masih ada?">BELI SEKARANG</a></li>
               </ul>
             </div>
           </nav> <!-- navbar -->
@@ -187,8 +187,8 @@
                   <h1 class="title" style="font-size: 250%">Selamat Datang<br>di Haladistro.</h1>
                   <p class="text">Sweater Hoodie. Celana Legging, Celana Training, celana jogger, kaos oblong, Singlet cewek/Cowok dll.</p>
                   <ul class="slider-btn rounded-buttons">
-                    <li><a class="main-btn rounded-one" href="#">GET STARTED</a></li>
-                    <li><a class="main-btn rounded-two" href="#">DOWNLOAD</a></li>
+                    <!-- <li><a class="main-btn rounded-one" href="#">GET STARTED</a></li> -->
+                    <!-- <li><a class="main-btn rounded-two" href="#">DOWNLOAD</a></li> -->
                   </ul>
                 </div>
               </div>
@@ -209,8 +209,8 @@
                   <h1 class="title" style="font-size: 250%">Selamat Datang<br>di Haladistro.</h1>
                   <p class="text">Sweater Hoodie. Celana Legging, Celana Training, celana jogger, kaos oblong, Singlet cewek/Cowok dll.</p>
                   <ul class="slider-btn rounded-buttons">
-                    <li><a class="main-btn rounded-one" href="#">GET STARTED</a></li>
-                    <li><a class="main-btn rounded-two" href="#">DOWNLOAD</a></li>
+                    <!-- <li><a class="main-btn rounded-one" href="#">GET STARTED</a></li> -->
+                    <!-- <li><a class="main-btn rounded-two" href="#">DOWNLOAD</a></li> -->
                   </ul>
                 </div> <!-- slider-content -->
               </div>
@@ -231,8 +231,8 @@
                  <h1 class="title" style="font-size: 250%">Selamat Datang<br>di Haladistro.</h1>
                   <p class="text">Sweater Hoodie. Celana Legging, Celana Training, celana jogger, kaos oblong, Singlet cewek/Cowok dll.</p>
                   <ul class="slider-btn rounded-buttons">
-                    <li><a class="main-btn rounded-one" href="#">GET STARTED</a></li>
-                    <li><a class="main-btn rounded-two" href="#">DOWNLOAD</a></li>
+                    <!-- <li><a class="main-btn rounded-one" href="#">GET STARTED</a></li> -->
+                    <!-- <li><a class="main-btn rounded-two" href="#">DOWNLOAD</a></li> -->
                   </ul>
                 </div> <!-- slider-content -->
               </div>
@@ -270,8 +270,6 @@
                 <div class="col-lg-8 col-md-8 col-sm-12">
                   <p class="text text-justify">
                     Kami adalah Sebuah konveksi rumahan yang berlokasi di Batam, Kepri. Dengan dukungan teknologi dan tenaga kerja yang berpengalaman di garment Batam maka Haladistro konveksi dapat menghasilkan produk berkualitas  dan tentunya dengan harga yang terjangkau. Adapun jenis produk yang kami kerjakan seperti sweater Hoodie, kaos oblong/polo, seragam olahraga, singlet, legging, celana jogger dll.
-                    <br><br>
-                    Nunc porttitor, massa sed auctor sagittis, neque lacus vulputate purus, eget ullamcorper odio nisl ut lacus. Integer magna orci, interdum vel consectetur a, auctor sit amet justo. Morbi mollis porttitor facilisis. In facilisis ornare mi nec porta. Quisque erat neque, imperdiet quis odio ac, sollicitudin porta mauris. In ultricies, nunc non laoreet convallis, magna erat tristique diam, vitae aliquet enim leo eget metus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque eu volutpat metus. Mauris placerat tincidunt erat, non molestie elit lobortis id. Etiam vel eros sit amet tortor imperdiet congue eu vel ipsum. Phasellus vel tincidunt arcu. Duis tincidunt pretium mattis. Nulla diam dolor, rutrum ut dapibus id, dapibus ac mi. Integer vel ultrices ante. Nunc sit amet neque a ligula luctus egestas.
                   </p>
                 </div>
                 <div class="col">
@@ -350,34 +348,32 @@
           <div class="portfolio-menu text-center mt-50">
             <ul>
               <li data-filter="*" class="active">ALL PRODUCT</li>
-              <li data-filter=".hoodie-4">HOODIE</li>
-              <li data-filter=".singlet-4">SINGLET</li>
-              <li data-filter=".lejing-4">LEJING</li>
-              <li data-filter=".kaos-4">KAOS</li>
+              <?php foreach($category_list as $key => $value): ?>
+              <li data-filter=".<?php echo $value['category'] ?>-4"><?php echo $value['category'] ?></li>
+              <?php endforeach; ?>
             </ul>
           </div> <!-- portfolio menu -->
         </div>
         <div class="col-lg-9 col-md-9">
           <div class="row no-gutters grid mt-50">
             <?php foreach ($products as $key => $value): ?>
-            <div class="col-lg-4 col-sm-6 hoodie-4">
-              <div class="single-portfolio" style="background-color: #ff9ff3;">
-                <div class="portfolio-image">
-                  <img src="<?php echo base_url() ?>file/image/<?php echo $value['picture_thumb'] ?>" alt="">
-                  <div class="portfolio-overlay d-flex align-items-center justify-content-center">
-                    <div class="portfolio-content">
-                      <div class="portfolio-icon">
-                        <a class="image-popup" href="<?php echo base_url() ?>file/image/<?php echo $value['picture_thumb'] ?>"><i class="lni lni-zoom-in"></i></a>
-                        <img src="<?php echo base_url() ?>assets/landing_page/images/portfolio/shape.svg" alt="shape" class="shape">
+            <div class="col-lg-4 col-sm-6 <?php echo $value['category'] ?>-4">
+              <a href="<?php echo base_url() ?>product_detail/<?php echo $value['link'] ?>">
+                <div class="single-portfolio" style="background-color: #ff9ff3;">
+                  <div class="portfolio-image">
+                    <img src="<?php echo base_url() ?>file/image/<?php echo $value['picture_thumb'] ?>" alt="">
+                    <a href="<?php echo base_url() ?>product_detail/<?php echo $value['link'] ?>">
+                      <div class="portfolio-overlay d-flex align-items-center justify-content-center">
+                        <div class="portfolio-content">
+                          <div class="portfolio-icon">
+                            SEE MORE DETAIL
+                          </div>
+                        </div>
                       </div>
-                      <div class="portfolio-icon">
-                        <a href="<?php echo base_url() ?>product_detail/<?php echo $value['link'] ?>"><i class="lni lni-link"></i></a>
-                        <img src="<?php echo base_url() ?>assets/landing_page/images/portfolio/shape.svg" alt="shape" class="shape">
-                      </div>
-                    </div>
+                    </a>
                   </div>
-                </div>
-              </div> <!-- single portfolio -->
+                </div> <!-- single portfolio -->
+              </a>
             </div>
             <?php endforeach; ?>
           </div> <!-- row -->
@@ -391,13 +387,16 @@
 			<div class="row justify-content-center">
 				<div class="col-12 text-center wow fadeIn" data-wow-duration="1.5s">
 					<h3 class="text-center text-white">BERAPA HARGANYA?<br>
-            HARGA GAK SAMPE NGURAS KANTONG GAN...<br>
-            HARGA NORMAL <span style="text-decoration:line-through">Rp 180.000</span> Rp 125.000 DAPET 3 PCS  KAOS SINGLET BOLEH CAMPUR WARNA DAN UKURAN.</h3>
+            HANYA Rp 75.000/PCS GRATIS ONGKIR SEBATAM<br>
+            BELI 3 PCS HANYA <span style="text-decoration:line-through">Rp 225.000</span> Rp 200.000 BOLEH CAMPUR WARNA DAN UKURAN.</h3>
 				</div>
 			</div>
 		</div>
   </section>
-  
+  <?php
+    $dont_show = 1;
+    if($dont_show == 0):
+  ?>
   <section id="review" class="testimonial-area" style="background-color: unset;">
     <div class="container">
       <div class="row justify-content-between">
@@ -504,6 +503,7 @@
       </div> <!-- row -->
     </div> <!-- container -->
   </section>
+  <?php endif; ?>
 
   <!--====== TEAM  ENDS ======-->
   

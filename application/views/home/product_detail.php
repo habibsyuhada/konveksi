@@ -105,7 +105,7 @@
         <div class="col-lg-12">
           <nav class="navbar navbar-expand-lg">
              
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="<?php echo base_url() ?>">
               <img src="<?php echo base_url() ?>assets/landing_page/images/logo.svg" alt="Logo">
             </a>
             
@@ -117,8 +117,8 @@
 
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarTwo">
               <ul class="navbar-nav m-auto">
-                <li class="nav-item"><a href="index.html">Beranda</a></li>
-                <li class="nav-item active"><a href="detail.html">Nama Produk</a></li>
+                <li class="nav-item"><a href="<?php echo base_url() ?>">Beranda</a></li>
+                <li class="nav-item active"><a href="#"><?php echo $product['name'] ?></a></li>
                 <!-- <li class="nav-item"><a href="#team">Team</a></li> -->
                 <!-- <li class="nav-item"><a href="#contact">Contact</a></li> -->
               </ul>
@@ -178,42 +178,12 @@
         </div>
       </div> <!-- row -->
       <div class="row">
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
+        <?php foreach ($color_list as $key => $value): ?>
+        <div class="col-md-3 text-center">
+          <img src="<?php echo base_url() ?>file/image/color/<?php echo $value['image'] ?>" alt="Hero">
+          <h5 class="font-weight-bold mt-1"><?php echo $value['color'] ?></h5>
         </div>
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
-        </div>
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
-        </div>
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
-        </div>
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
-        </div>
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
-        </div>
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
-        </div>
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
-        </div>
-        <div class="col-md-3">
-          <img src="<?php echo base_url() ?>assets/landing_page/img/slider/jaket_biru.png" alt="Hero">
-          <h5 class="text-center font-weight-bold">BIRU</h5>
-        </div>
+        <?php endforeach; ?>
       </div>
     </div> <!-- container -->
   </section>
@@ -230,36 +200,30 @@
       </div> <!-- row -->
       <div class="row justify-content-center">
         <div class="col-md-12">
-          <table class="table table-bordered table-hover text-center bg-white">
-            <thead class="bg-orange text-white">
-              <tr>
-                <th></th>
-                <th>Panjang Baju</th>
-                <th>Lingkar Dada</th>
-                <th>Panjang Lengan</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th class="bg-orange text-white">S</th>
-                <td>66</td>
-                <td>46</td>
-                <td>22</td>
-              </tr>
-              <tr>
-                <th class="bg-orange text-white">M</th>
-                <td>66</td>
-                <td>46</td>
-                <td>22</td>
-              </tr>
-              <tr>
-                <th class="bg-orange text-white">L</th>
-                <td>66</td>
-                <td>46</td>
-                <td>22</td>
-              </tr>
-            </tbody>
-          </table>
+          <div style="overflow-x: scroll;">
+            <table class="table table-bordered table-hover text-center bg-white">
+              <thead class="bg-orange text-white">
+                <tr>
+                  <th></th>
+                  <th>S (cm)</th>
+                  <th>M (cm)</th>
+                  <th>L (cm)</th>
+                  <th>XL (cm)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($size_list as $key => $value): ?>
+                <tr>
+                  <th class="bg-orange text-white"><?php echo $value["size"] ?></th>
+                  <td><?php echo $value["s_size"] ?></td>
+                  <td><?php echo $value["m_size"] ?></td>
+                  <td><?php echo $value["l_size"] ?></td>
+                  <td><?php echo $value["xl_size"] ?></td>
+                </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div> <!-- container -->

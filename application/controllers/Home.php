@@ -23,6 +23,9 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->model('user_mod');
 		$this->load->model('product_mod');
+		$this->load->model('category_mod');
+		$this->load->model('color_mod');
+		$this->load->model('size_mod');
 		if($this->session->userdata('id') == "Guest"){
 			$this->session->unset_userdata('id');
 			session_destroy();
@@ -30,13 +33,16 @@ class Home extends CI_Controller {
 	}
 
 	public function index(){
-		$data['products'] = $this->product_mod->product_list_db();
+		$data['products'] 			= $this->product_mod->product_list_db();
+		$data['category_list'] 	= $this->category_mod->category_list_db(['status' => 1]);
 		$this->load->view('home/landing_page', $data);
 	}
 
 	public function product_detail($link){
 		$where['link'] 		= $link;
 		$data['product'] = $this->product_mod->product_list_db($where)[0];
+		$data['color_list'] 	= $this->color_mod->color_list_db(['id_product' => $data['product']['id']]);
+		$data['size_list'] 	= $this->size_mod->size_list_db(['id_product' => $data['product']['id']]);
 		
 		$this->load->view('home/product_detail', $data);
 	}
@@ -75,8 +81,8 @@ class Home extends CI_Controller {
 				"id" 					=> $user['id'],
 				"name" 				=> $user['name'],
 				"email" 			=> $user['email'],
-				"role" 				=> $user['role'],
-				"branch" 			=> $user['branch'],
+				// "role" 				=> $user['role'],
+				// "branch" 			=> $user['branch'],
 			);
 			$this->session->set_userdata($session_user);
 			redirect('product/product_list');
