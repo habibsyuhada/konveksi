@@ -96,7 +96,7 @@
                 <div class="stock__checkbox">
                   <label for="stockin">
                     In Stock
-                    <input type="checkbox" id="stockin" disabled <?= ($product['stock_status'] == 0 ? '' : 'checked') ?>>
+                    <input type="checkbox" id="stockin" disabled <?= ($product['stock_status'] == 0 ? 'checked' : 'checked') ?>>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -132,6 +132,18 @@
                     <input type="radio" id="l-btn">
                     l
                   </label>
+                  <label for="xl-btn">
+                    <input type="radio" id="xl-btn">
+                    xl
+                  </label>
+                  <label for="2xl-btn">
+                    <input type="radio" id="2xl-btn">
+                    2xl
+                  </label>
+                  <label for="3xl-btn">
+                    <input type="radio" id="3xl-btn">
+                    3xl
+                  </label>
                 </div>
               </li>
               <li>
@@ -142,7 +154,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-12">
+      <div class="col-lg-12 d-none">
         <div class="product__details__tab">
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
@@ -190,6 +202,15 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+<section class="product-details spad">
+  <div class="container">
+    <a class="btn btn-block site-btn text-white" style="border-radius: 0px" href="https://wa.me/6281365538139?text=Halo, saya mau beli barang ini, masih ada?"><i class="fa fa-whatsapp"></i> BELI SEKARANG</a>
+  </div>
+</section>
+<!-- <section class="product-details spad">
+  <div class="container">
     <?php if(count($suggest_product) > 0): ?>
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -207,7 +228,6 @@
             <ul class="product__hover">
               <li><a href="<?php echo base_url() ?>admin/file/image/<?php echo $value['main_picture'] ?>" class="image-popup"><span class="arrow_expand"></span></a></li>
               <li><a href="<?php echo base_url() ?>shop/detail/<?php echo str_pad($value['id'], 6, "0", STR_PAD_LEFT); ?>"><span class="icon_heart_alt"></span></a></li>
-              <!-- <li><a href="#"><span class="icon_bag_alt"></span></a></li> -->
             </ul>
           </div>
           <div class="product__item__text">
@@ -227,7 +247,7 @@
     </div>
     <?php endif; ?>
   </div>
-</section>
+</section> -->
 <!-- Product Details Section End -->
 <script>
   $(document).ready(function() {

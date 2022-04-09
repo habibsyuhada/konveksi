@@ -28,7 +28,7 @@
                   <tr>
                     <td><?php echo str_pad($value['id'], 6, "0", STR_PAD_LEFT);  ?></td>
                     <td><?php echo $value['name'] ?></td>
-                    <td><?php echo ($value['main_picture'] == "" ? "No Image" : "<image width='200px' src='".base_url()."file/image/".$value['main_picture']."'>") ?></td>
+                    <td><?php echo (@$picture_list[$value['id']]['picture'] == "" ? "No Image" : "<image width='200px' src='".base_url()."file/image/".$picture_list[$value['id']]['picture']."'>") ?></td>
                     <td>
                       <?php 
                         $category_arr = [];

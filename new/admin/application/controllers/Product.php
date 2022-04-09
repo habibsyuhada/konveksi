@@ -40,6 +40,24 @@ class Product extends CI_Controller
 		}
 		$data['category_list'] = $category_list;
 
+		$datadb = $this->product_mod->product_picture_list_db();
+		$picture_list = [];
+		foreach ($datadb as $key => $value) {
+			if(!isset($picture_list[$value['id_product']])){
+				$picture_list[$value['id_product']] = $value;
+			}
+		}
+		$data['picture_list'] = $picture_list;
+
+		$datadb = $this->product_mod->product_color_list_db();
+		$color_list = [];
+		foreach ($datadb as $key => $value) {
+			if(!isset($color_list[$value['id_product']])){
+				$color_list[$value['id_product']] = $value;
+			}
+		}
+		$data['color_list'] = $color_list;
+
     $data['subview'] 				= 'product/product_list';
 		$data['meta_title'] 		= 'Product List';
 		$this->load->view('index', $data);
@@ -59,21 +77,21 @@ class Product extends CI_Controller
     $upload_path = 'file/image/';
 		$this->load->library('upload');
 
-		$config['upload_path']          = $upload_path;
-		$config['file_name']            = 'img_thumb'.date('YmdHis');
-		$config['allowed_types']        = 'gif|jpg|png|jpeg';
-		$config['overwrite'] 						= TRUE;
-		$this->upload->initialize($config);
-		if (!$this->upload->do_upload('main_picture')) {
-			$this->session->set_flashdata('error', $this->upload->display_errors());
-			redirect("product/product_create");
-			return false;
-		}
-    $main_picture = $this->upload->data("file_name");
+		// $config['upload_path']          = $upload_path;
+		// $config['file_name']            = 'img_thumb'.date('YmdHis');
+		// $config['allowed_types']        = 'gif|jpg|png|jpeg';
+		// $config['overwrite'] 						= TRUE;
+		// $this->upload->initialize($config);
+		// if (!$this->upload->do_upload('main_picture')) {
+		// 	$this->session->set_flashdata('error', $this->upload->display_errors());
+		// 	redirect("product/product_create");
+		// 	return false;
+		// }
+    // $main_picture = $this->upload->data("file_name");
 
     $form_data = array(
 			'name' 				  		=> $post['name'],
-			'main_picture' 			=> $main_picture,
+			'main_picture' 			=> '',
 			'price' 						=> $post['price'],
 			'discount_price'		=> $post['discount_price'],
 			'promotion' 				=> $post['promotion'],
@@ -184,6 +202,23 @@ class Product extends CI_Controller
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 
+	public function product_color_main_update_process($id, $id_product){
+		$this->product_mod->product_color_update_process_db([
+			"ismain" => 0
+		], [
+			'id_product' => $id_product
+		]);
+
+		$this->product_mod->product_color_update_process_db([
+			"ismain" => 1
+		], [
+			'id' => $id
+		]);
+
+		$this->session->set_flashdata('success', 'Your Product Color data has been Updated!');
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+
 	public function product_picture_new_process(){
 		$post = $this->input->post();
 
@@ -210,6 +245,30 @@ class Product extends CI_Controller
 		$id_product = $this->product_mod->product_picture_create_process_db($form_data);
 
 		$this->session->set_flashdata('success', 'Your Product data has been Created!');
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	public function product_picture_delete_process($id){
+		$this->product_mod->product_picture_delete_process_db(['id' => $id]);
+
+		$this->session->set_flashdata('success', 'Your Product data has been Deleted!');
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	public function product_picture_main_update_process($id, $id_product){
+		$this->product_mod->product_picture_update_process_db([
+			"ismain" => 0
+		], [
+			'id_product' => $id_product
+		]);
+
+		$this->product_mod->product_picture_update_process_db([
+			"ismain" => 1
+		], [
+			'id' => $id
+		]);
+
+		$this->session->set_flashdata('success', 'Your Product Picture data has been Updated!');
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 		

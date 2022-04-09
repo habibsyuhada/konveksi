@@ -39,7 +39,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label>Main Picture</label><br>
                     <?php
                       if($product['main_picture'] == ""){
@@ -56,7 +56,7 @@
                         <button class="file-upload-browse btn btn-info" type="button">Upload</button>
                       </span>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="form-group">
                     <label>Promotion</label>
                     <input type="text" class="form-control" name="promotion" value="<?php echo $product['promotion'] ?>" placeholder="Promotion" required>
@@ -97,6 +97,7 @@
                 <table class="table data_table">
                   <thead>
                     <tr class="bg-info">
+                      <th class="text-white font-weight-bold">Is Main</th>
                       <th class="text-white font-weight-bold">Code</th>
                       <th class="text-white font-weight-bold">Color</th>
                       <th class="text-white font-weight-bold"></th>
@@ -105,6 +106,9 @@
                   <tbody>
                     <?php foreach ($product_color_list as $key => $value): ?>
                     <tr>
+                      <td>
+                        <a href="<?= base_url() ?>product/product_color_main_update_process/<?php echo $value['id'] ?>/<?php echo $product['id'] ?>" class="btn btn-sm <?= $value['ismain'] == 1 ? 'btn-success' : 'btn-danger' ?>"><?= $value['ismain'] == 1 ? 'Yes' : 'No' ?></a>
+                      </td>
                       <td><?= $value['color_code'] ?></td>
                       <td>
                         <div style="border-radius: 3px; width: 1rem; height: 1rem; background-color: <?= $value['color_code'] ?>">
@@ -150,43 +154,75 @@
                   <button type="submit" class="btn btn-success">Submit</button>
                 </form>
               </div>
-              <div class="col-md-auto" style="border-right: 1px solid #eaeaea"></div>
-              <div class="col-md">
-                <table class="table data_table">
-                  <thead>
-                    <tr class="bg-info">
-                      <th class="text-white font-weight-bold">Picture</th>
-                      <th class="text-white font-weight-bold">SVG</th>
-                      <th class="text-white font-weight-bold"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($product_picture_list as $key => $value): ?>
-                    <tr>
-                      <td>
-                        <?php
-                          if($product['main_picture'] == ""){
-                            echo "<b>No Image</b>";
-                          }
-                          else{
-                            echo "<image width='300px' class='mb-2' src='".base_url()."file/image/".$value['picture']."'>";
-                          }
-                        ?>  
-                      </td>
-                      <td><?= $value['svg'] ?></td>
-                      <td>
-                        <a href="<?php echo base_url() ?>product/product_color_delete_process/<?php echo $value['id'] ?>" class="btn btn-danger" title="Delete" onclick="return confirm('Are You Sure?')"><i class="fas fa-trash m-0"></i></a>
-                      </td>
-                    </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
+              <!-- <div class="col-md-1" style="border-right: 1px solid #eaeaea"></div> -->
+              <div class="col-md-7">
+                <div class="overflow-auto">
+                  <table class="table data_table">
+                    <thead>
+                      <tr class="bg-info">
+                        <th class="text-white font-weight-bold">Is Main</th>
+                        <th class="text-white font-weight-bold">Picture</th>
+                        <th class="text-white font-weight-bold">SVG</th>
+                        <th class="text-white font-weight-bold"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php foreach ($product_picture_list as $key => $value): ?>
+                      <tr>
+                        <td>
+                          <a href="<?= base_url() ?>product/product_picture_main_update_process/<?php echo $value['id'] ?>/<?php echo $product['id'] ?>" class="btn btn-sm <?= $value['ismain'] == 1 ? 'btn-success' : 'btn-danger' ?>"><?= $value['ismain'] == 1 ? 'Yes' : 'No' ?></a>
+                        </td>
+                        <td>
+                          <?php
+                            if($value['picture'] == ""){
+                              echo "<b>No Image</b>";
+                            }
+                            else{
+                              echo "<image width='300px' class='mb-2' src='".base_url()."file/image/".$value['picture']."'>";
+                            }
+                          ?>  
+                        </td>
+                        <td><span class="text-break"><?= $value['svg'] ?></span></td>
+                        <td>
+                          <a href="<?php echo base_url() ?>product/product_picture_delete_process/<?php echo $value['id'] ?>" class="btn btn-danger" title="Delete" onclick="return confirm('Are You Sure?')"><i class="fas fa-trash m-0"></i></a>
+                        </td>
+                      </tr>
+                      <?php endforeach ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- <div class="row clearfix">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="font-weight-bold">Product Size</h6>
+            <div class="row clearfix">
+              <div class="col-md">
+                <div class="overflow-auto">
+                  <table class="table data_table">
+                    <thead>
+                      <tr class="bg-info">
+                        <th class="text-white font-weight-bold">Name (S, M, L)</th>
+                        <th class="text-white font-weight-bold">Size (Panjang Badan)</th>
+                        <th class="text-white font-weight-bold">SVG</th>
+                        <th class="text-white font-weight-bold"></th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
     
   </div>
 </div>

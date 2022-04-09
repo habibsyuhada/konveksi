@@ -38,7 +38,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label>Main Picture</label><br>
                     <input type="file" name="main_picture" class="file-upload-default">
                     <div class="input-group col-xs-12">
@@ -47,7 +47,7 @@
                         <button class="file-upload-browse btn btn-info" type="button">Upload</button>
                       </span>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="form-group">
                     <label>Promotion</label>
                     <input type="text" class="form-control" name="promotion" placeholder="Promotion" required>
